@@ -102,11 +102,11 @@ public class Util {
 		return Content;
 	}
 	
-	public static void IsDeleteUtputFolder(Boolean indicate) {
+	public static void IsDeleteUtputFolder(Boolean indicate,Path path) {
 		if (indicate) {
 			// Deleting the output folder
 			try {
-				File outputFolder = new File("output");
+				File outputFolder = new File(path.toString());
 				FileUtils.deleteDirectory(outputFolder);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

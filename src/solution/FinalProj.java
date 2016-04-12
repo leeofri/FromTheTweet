@@ -40,6 +40,7 @@ public class FinalProj {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 
+		//"..\\resources\\wordDictionary.txt"
 	
 		Job job = Job.getInstance(conf, "FinelProj.Canopy");
 		job.setJarByClass(FinalProj.class);
@@ -49,12 +50,18 @@ public class FinalProj {
 		job.setOutputValueClass(DoubleWritable.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(DoubleWritable.class);
+		
+		// add dictionary to chach
+		DistributedCache.addLocalFiles(job.getConfiguration(), "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
+		//DistributedCache.addCacheFile((new Path("../resources/wordDictionary.txt")).toUri(), job.getConfiguration());
 
-		FileOutputFormat.setOutputPath(job, Globals.OutputFolderCanopy());
-		FileInputFormat.addInputPath(job, new Path("input/input"));
+		Path outPutPath = new Path("output");
+		
+		FileOutputFormat.setOutputPath(job, outPutPath);
+		FileInputFormat.addInputPath(job, new Path("input"));
 		
 		// delete the privies run output
-	    Util.IsDeleteUtputFolder(true);
+	    Util.IsDeleteUtputFolder(true, outPutPath);
 		
 	    // run canopy
 		job.waitForCompletion(true);

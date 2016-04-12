@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.math.stat.descriptive.moment.Mean;
 import org.apache.hadoop.conf.Configuration;
@@ -27,12 +28,18 @@ import solution.ThirdParty.StdRandom;
 //first iteration, k-random centers, in every follow-up iteration we have new calculated centers
 public class TweetMapper extends
 		Mapper<LongWritable, Text, Text, DoubleWritable> {
+	
+	// DM
+	private scoreDictionary dictionary;
 
 	@Override
 	protected void setup(Context context) throws IOException,
 			InterruptedException {
 		// Getting all the paths
-		Path[] paths = context.getLocalCacheFiles();
+		Path[] uri = context.getLocalCacheFiles();//context.getCacheFiles();
+		
+		//Init the word score dic
+		this.dictionary = new scoreDictionary(uri[0].toString());	//.getPath()
 	}
 
 	@Override
@@ -44,9 +51,11 @@ public class TweetMapper extends
 		
 		// Get the text and candidate from the tweet line
 		Text candidate = new Text(tweet[0]);
+		String tweetText = tweet[1];
 		
-		// Get the text from the tweet TODO: add tzvika algorithm
-		DoubleWritable score = new DoubleWritable(StdRandom.random());
+		
+		// Get the text from the tweet
+		DoubleWritable score = new DoubleWritable(this.dictionary.getSentenceGrade(tweetText));
 		
 		
 		context.write(candidate, score);
