@@ -36,10 +36,10 @@ public class TweetMapper extends
 	protected void setup(Context context) throws IOException,
 			InterruptedException {
 		// Getting all the paths
-		Path[] uri = context.getLocalCacheFiles();//context.getCacheFiles();
-		
+		Path[] path = context.getLocalCacheFiles();//context.getCacheFilesgetLocalCacheFiles();
+	
 		//Init the word score dic
-		this.dictionary = new scoreDictionary(uri[0].toString());	//.getPath()
+		this.dictionary = new scoreDictionary(path[0].toString());	//.getPath()
 	}
 
 	@Override
@@ -49,17 +49,24 @@ public class TweetMapper extends
 		// split he tweet
 		String[] tweet = value.toString().split("~%");
 		
-		// Get the text and candidate from the tweet line
-		Text candidate = new Text(tweet[0]);
-		String tweetText = tweet[1];
 		
+		try 
+		{
+			// Get the text and candidate from the tweet line-
+			Text candidate = new Text(tweet[0]);
+			String tweetText = tweet[1];
+			
+			// Get the text from the tweet
+			DoubleWritable score = new DoubleWritable(this.dictionary.getSentenceGrade(tweetText));
+			
+			
+			context.write(candidate, score);
+		}
+		catch (IndexOutOfBoundsException Iex)
+		{
+			System.out.println("INFO-ERROR: IndexOutOfBoundsException. tweet: " + value.toString());
+		}
 		
-		// Get the text from the tweet
-		DoubleWritable score = new DoubleWritable(this.dictionary.getSentenceGrade(tweetText));
-		
-		
-		context.write(candidate, score);
-
 	}
 
 	private Text CreateKey(Text text, Text text2) {

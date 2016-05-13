@@ -52,13 +52,13 @@ public class FinalProj {
 		job.setMapOutputValueClass(DoubleWritable.class);
 		
 		// add dictionary to chach
-		DistributedCache.addLocalFiles(job.getConfiguration(), "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
-		//DistributedCache.addCacheFile((new Path("../resources/wordDictionary.txt")).toUri(), job.getConfiguration());
+		//DistributedCache.addLocalFiles(job.getConfiguration(), "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
+		DistributedCache.addCacheFile((new Path("/user/training/FromTheTweet/wordDictionary.txt").toUri()), job.getConfiguration());
 
-		Path outPutPath = new Path("output");
+		Path outPutPath = new Path(args[1]);
 		
 		FileOutputFormat.setOutputPath(job, outPutPath);
-		FileInputFormat.addInputPath(job, new Path("input"));
+		FileInputFormat.addInputPath(job, new Path(args[0]));
 		
 		// delete the privies run output
 	    Util.IsDeleteUtputFolder(true, outPutPath);
