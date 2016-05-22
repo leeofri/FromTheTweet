@@ -1,6 +1,10 @@
 package solution;
 
 import java.io.IOException;
+
+import org.apache.hadoop.mapred.InputSplit;
+import org.apache.hadoop.mapred.Counters.Counter;
+
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,14 +31,20 @@ public class TweetReducer extends
 	@Override
 	protected void reduce(Text key, Iterable<DoubleWritable> values,
 			Context context) throws IOException, InterruptedException {
-
+		
 			// score summery counter
 			double canidateSunScore = 0;
+			int    tweetConter = 0;
 		
 			// sum all the scores
 			for (DoubleWritable score : values) {
 				canidateSunScore =+ score.get();
+				tweetConter++;
 			}
+			
+			
+			// Update the tweet conter for canidate
+			Globals.updateCandidate(key.toString(),tweetConter,context);
 			
 			context.write(key,new DoubleWritable(canidateSunScore));
 	}

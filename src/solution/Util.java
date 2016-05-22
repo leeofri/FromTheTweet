@@ -135,9 +135,9 @@ public class Util {
 
 			String[] values = line.split(" ");
 
-			Globals.setKmeansCount(Integer.parseInt(values[1]));
-			Globals.setDaysNumber(Integer.parseInt(values[3]));
-			Globals.setFeaturesNumber(Integer.parseInt(values[5]));
+//			Globals.setKmeansCount(Integer.parseInt(values[1]));
+//			Globals.setDaysNumber(Integer.parseInt(values[3]));
+//			Globals.setFeaturesNumber(Integer.parseInt(values[5]));
 			
 			// set the basic output path
 			//Globals.setOutputFolder(arg[1]);

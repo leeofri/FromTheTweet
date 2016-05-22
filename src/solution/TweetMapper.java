@@ -25,6 +25,8 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import solution.ThirdParty.StdRandom;
 
+
+
 //first iteration, k-random centers, in every follow-up iteration we have new calculated centers
 public class TweetMapper extends
 		Mapper<LongWritable, Text, Text, DoubleWritable> {

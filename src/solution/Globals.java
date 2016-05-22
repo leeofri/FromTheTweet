@@ -1,29 +1,47 @@
-package solution;import org.apache.hadoop.fs.Path;
+package solution;import java.sql.Ref;
+
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.mapreduce.Reducer.Context;
 
 public class Globals {
-	static int kmeansCount = 0 ;
-	static int daysNumber = 0 ;
-	static int featuresNumber  =  0;
-	static boolean LastReduce = false;
+	
+	 enum candidateCounters {
+         HC,
+         DT,
+         BS,
+         TC,
+         JK
+	 }
+	 
+ 
+	
 	static String outputFolder = "./output";
 	
-	public static double T1() {
-		return 29.95;
-	}
 	
-	public static double T2() {
-		return 0;
-	}
-	
-	public static Path CanopyCenterPath()
+	public static void updateCandidate (String candidateCode,int numOfTweets, Context context)
 	{
-		return new Path("./data/SequenceFile.canopyCenters");
+		if (candidateCode == "DT") 
+		{
+			context.getCounter(candidateCounters.DT).increment(numOfTweets);
+		}
+		else if (candidateCode == "HC")
+		{
+			context.getCounter(candidateCounters.HC).increment(numOfTweets);
+		}
+		else if (candidateCode == "BS")
+		{
+			context.getCounter(candidateCounters.BS).increment(numOfTweets);
+		}
+		else if (candidateCode == "TC")
+		{
+			context.getCounter(candidateCounters.TC).increment(numOfTweets);
+		}
+		else if (candidateCode == "JK")
+		{
+			context.getCounter(candidateCounters.JK).increment(numOfTweets);
+		}
+		
 	}
-	
-//	public static Path InputFolder()
-//	{
-//		return new Path("./input/input");
-//	}
 	
 	public static Path getOutputFolder()
 	{
@@ -35,67 +53,11 @@ public class Globals {
 		outputFolder = outputPath;
 	}
 	
-	public static Path OutputFolderCanopy()
-	{
-		return new Path(Globals.getOutputFolder()+"/Canopy");
-	}
 	
-	public static Path OutputFolderKmeans(int iteration)
-	{
-		return new Path(Globals.getOutputFolder()+"/Kmeans"+iteration);
-	}
-	
-	public static Path KmeansCenterPath()
-	{
-		return new Path("./data/SequenceFile.kmeansCenters");
-	}
 	
 	public static Path UserConfigFilePath()
 	{
 		return new Path("./data/userConfigFile.config");
-	}
-	
-	public static int getKmeansCount()
-	{
-		return kmeansCount;
-	}
-	
-	public static void setKmeansCount(int count)
-	{
-		 kmeansCount = count;
-	}
-	
-	public static int getDaysNumber()
-	{
-		return daysNumber;
-	}
-	
-	public static void setDaysNumber(int count)
-	{
-		daysNumber = count;
-	}
-	
-	
-	public static int getFeaturesNumber()
-	{
-		return featuresNumber ;
-	}
-	
-	public static void setFeaturesNumber(int count)
-	{
-		featuresNumber  = count;
-	}
-	public static boolean isLastReduce()
-	{
-		return LastReduce;
-	}
-	public static double getKmeansZeroDistance()
-	{
-		return 0.8;
-	}
-	public static void turnOnLastRunFlag()
-	{
-		LastReduce = true;
 	}
 	
 }
