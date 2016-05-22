@@ -1,36 +1,15 @@
 package solution;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.math.LongRange;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.filecache.DistributedCache;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.SequenceFile;
-import org.apache.hadoop.io.SequenceFile.Reader;
-import org.apache.hadoop.io.SequenceFile.Writer;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counter;
+import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 
 
 public class FinalProj {
@@ -65,5 +44,25 @@ public class FinalProj {
 		
 	    // run canopy
 		job.waitForCompletion(true);
+		
+		// Print the candidate conters
+		Counters counters = job.getCounters();
+
+		System.out.println("Candidate conters:");
+		
+		Counter BS = counters.findCounter( Globals.candidateCounters.BS);
+		System.out.println(BS.getDisplayName()+":"+BS.getValue());
+		
+		Counter HC = counters.findCounter( Globals.candidateCounters.HC);
+		System.out.println(HC.getDisplayName()+":"+HC.getValue());
+		
+		Counter DT = counters.findCounter( Globals.candidateCounters.DT);
+		System.out.println(DT.getDisplayName()+":"+DT.getValue());
+		
+		Counter JK = counters.findCounter( Globals.candidateCounters.JK);
+		System.out.println(JK.getDisplayName()+":"+JK.getValue());
+		
+		Counter TC = counters.findCounter( Globals.candidateCounters.TC);
+		System.out.println(TC.getDisplayName()+":"+TC.getValue());
 
 }}
