@@ -43,7 +43,7 @@ public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWri
 	        StringBuilder valueBuilder = new StringBuilder();
 	        while (m.find()) {
 	            String matchedKey = m.group().toLowerCase();
-	            matchedKey.replaceAll("\\<.*?\\>", "");
+	            matchedKey.replaceAll("\\<.*=?\\>", "");
 	            
 	            // Stemmer 
 	            int cut = engStemmer.stem(matchedKey.toCharArray(), matchedKey.length());
