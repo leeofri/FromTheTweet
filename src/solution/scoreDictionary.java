@@ -106,29 +106,4 @@ public class scoreDictionary {
 		return sum / count;
 	}
 
-//	public void main(String [] args) throws IOException {
-//		
-//		SentiWordNetDemoCode(path);
-////		System.out.println("hi");
-//		System.out.println("good "+extract("good"));
-//		System.out.println("bad "+extract("bad"));
-//		System.out.println("blue "+extract("blue"));
-//		
-//		System.out.println("old "+extract("old"));
-//		System.out.println("happy "+extract("happy"));
-//		System.out.println("ugly "+extract("ugly"));
-//		System.out.println("retarded "+extract("retarded"));
-//		System.out.println("strong "+extract("strong"));
-//		
-//		String sen1 = "I believe in trump, he is the future";
-//		String sen2 = "Trump is such a loser, what a dick";
-//		String sen3 = "I don't, maybe clinton is the right choice after all";
-//		String sen4 = "This clinton woman is a gonna destroy this country";
-//		String sen5 = "this IS! just a 1234 test! why??? not! #hash1 #very_long_hash :) :P XD";
-//		System.out.println(getSentenceGrade(sen1));
-//		System.out.println(getSentenceGrade(sen2));
-//		System.out.println(getSentenceGrade(sen3));
-//		System.out.println(getSentenceGrade(sen4));
-//		System.out.println(getSentenceGrade(sen5));
-//	}
 }

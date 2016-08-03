@@ -42,55 +42,39 @@ public class Tweet implements Writable, Comparable<Tweet> {
 		this.text = text;
 	}
 
-
-
 	private IntWritable getDate() {
 		return date;
 	}
-
-
 
 	private void setDate(IntWritable date) {
 		this.date = date;
 	}
 
-
-
 	private IntWritable getFollowersCount() {
 		return followersCount;
 	}
-
-
 
 	private void setFollowersCount(IntWritable followersCount) {
 		this.followersCount = followersCount;
 	}
 
-
-
 	private IntWritable getLocation() {
 		return location;
 	}
-
-
 
 	private void setLocation(IntWritable location) {
 		this.location = location;
 	}
 
-
-
 	private IntWritable getFollowingCount() {
 		return followingCount;
 	}
-
-
 
 	private void setFollowingCount(IntWritable followingCount) {
 		this.followingCount = followingCount;
 	}
 
-	// Metods
+	// Methods
 	
 	@Override
 	public void write(DataOutput out) throws IOException {
