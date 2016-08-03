@@ -26,8 +26,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import solution.ThirdParty.StdRandom;
 
 
-
-//first iteration, k-random centers, in every follow-up iteration we have new calculated centers
+// First iteration, k-random centers, in every follow-up iteration we have new calculated centers
 public class TweetMapper extends
 		Mapper<LongWritable, Text, Text, DoubleWritable> {
 	
@@ -37,10 +36,11 @@ public class TweetMapper extends
 	@Override
 	protected void setup(Context context) throws IOException,
 			InterruptedException {
+		
 		// Getting all the paths
 		Path[] path = context.getLocalCacheFiles();//context.getCacheFilesgetLocalCacheFiles();
 	
-		//Init the word score dic
+		// Init the word score dic
 		this.dictionary = new scoreDictionary(path[0].toString());	//.getPath()
 	}
 
@@ -50,8 +50,7 @@ public class TweetMapper extends
 
 		// split he tweet
 		String[] tweet = value.toString().split("~%");
-		
-		
+				
 		try 
 		{
 			// Get the text and candidate from the tweet line-
@@ -60,8 +59,7 @@ public class TweetMapper extends
 			
 			// Get the text from the tweet
 			DoubleWritable score = new DoubleWritable(this.dictionary.getSentenceGrade(tweetText));
-			
-			
+						
 			context.write(candidate, score);
 		}
 		catch (IndexOutOfBoundsException Iex)

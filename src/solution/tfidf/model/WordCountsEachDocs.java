@@ -26,7 +26,7 @@ public class WordCountsEachDocs extends Configured implements Tool{
 	public int run(String[] args) throws Exception {
 			
 			Configuration conf = getConf();
-	        Job job = new Job(conf, "Word Frequence");
+	        Job job = new Job(conf, "Word Count Each Doc");
 	 
 	        job.setJarByClass(WordCountsEachDocs.class);
 	        job.setMapperClass(WordCountsEachDocsMapper.class);
