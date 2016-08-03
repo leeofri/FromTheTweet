@@ -14,9 +14,19 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class FinalProj {
 
-	private static int usedKmeans = 0;
 
 	public static void main(String[] args) throws Exception {
+		
+		
+		//
+		// tf-idf part one :  Word Frequency in Doc
+		//
+		
+		
+		
+		
+		
+		
 		Configuration conf = new Configuration();
 
 		//"..\\resources\\wordDictionary.txt"
@@ -65,4 +75,6 @@ public class FinalProj {
 		Counter TC = counters.findCounter( Globals.candidateCounters.TC);
 		System.out.println(TC.getDisplayName()+":"+TC.getValue());
 
-}}
+}
+	
+	}
