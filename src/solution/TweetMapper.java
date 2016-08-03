@@ -38,7 +38,7 @@ public class TweetMapper extends
 			InterruptedException {
 		
 		// Getting all the paths
-		Path[] path = context.getLocalCacheFiles();//context.getCacheFilesgetLocalCacheFiles();
+		Path[] path = context.getLocalCacheFiles();
 	
 		// Init the word score dic
 		this.dictionary = new scoreDictionary(path[0].toString());	//.getPath()

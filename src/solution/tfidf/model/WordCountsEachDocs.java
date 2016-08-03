@@ -18,7 +18,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class WordCountsEachDocs extends Configured implements Tool{
 	
 	//folder in the  where to put the data in hdfs when we're done
-    private static final String OUTPUT_FOLDER = "1-word-freq";
+    private static final String OUTPUT_FOLDER = "2-word-count";
  
     // where to read the data from.
     private static final String INPUT_PATH = "input";

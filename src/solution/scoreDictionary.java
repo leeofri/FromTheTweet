@@ -63,7 +63,6 @@ public class scoreDictionary {
 							dictionary.put(word, val);
 							
 						}
-
 					}
 				}
 			}
