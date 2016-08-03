@@ -17,16 +17,7 @@ public class FinalProj {
 
 	public static void main(String[] args) throws Exception {
 		
-		
-		//
-		// tf-idf part one :  Word Frequency in Doc
-		//
-		
-		
-		
-		
-		
-		
+
 		Configuration conf = new Configuration();
 
 		//"..\\resources\\wordDictionary.txt"
