@@ -70,6 +70,5 @@
 	<classpathentry kind="lib" path="/usr/lib/hadoop/hadoop-annotations.jar"/>
 	<classpathentry kind="lib" path="/usr/lib/hadoop/hadoop-auth.jar"/>
 	<classpathentry kind="lib" path="/usr/lib/hadoop/hadoop-common.jar"/>
-	<classpathentry kind="lib" path="src/solution/ThirdParty/lucene-analyzers-3.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

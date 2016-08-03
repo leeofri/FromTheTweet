@@ -12,8 +12,10 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import org.apache.lucene.analysis.en.EnglishAnalyzer;
-import org.apache.lucene.analysis.en.EnglishMinimalStemmer;
+import solution.ThirdParty.org.apache.lucene.analysis.en.EnglishAnalyzer;
+
+import solution.ThirdParty.org.apache.lucene.analysis.en.EnglishMinimalStemmer;
+
 
 public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 	 
@@ -38,6 +40,7 @@ public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWri
 	        Matcher m = p.matcher(tweetText);
 	        EnglishMinimalStemmer engStemmer = new EnglishMinimalStemmer();
 	        
+	        EnglishAnalyzer.getDefaultStopSet();
 	      
 	        // build the values and write <k,v> pairs through the context
 	        StringBuilder valueBuilder = new StringBuilder();
@@ -55,7 +58,7 @@ public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWri
 	                continue;
 	            }
 	            
-	            valueBuilder.append(matchedKey);
+	            valueBuilder.append(matchedKey); 
 	            valueBuilder.append("@");
 	            valueBuilder.append(tweetPublishDay);
 	            

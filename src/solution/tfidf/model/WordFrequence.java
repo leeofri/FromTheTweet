@@ -1,4 +1,5 @@
 package solution.tfidf.model;
+import solution.Globals;
 import solution.tfidf.*;
 
 import org.apache.hadoop.fs.Path;
@@ -16,11 +17,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class WordFrequence extends Configured implements Tool  {
 
-    //folder in the  where to put the data in hdfs when we're done
-    private static final String OUTPUT_FOLDER = "1-word-freq";
- 
-    // where to read the data from.
-    private static final String INPUT_PATH = "input";
  
     public int run(String[] args) throws Exception {
  
@@ -35,8 +31,12 @@ public class WordFrequence extends Configured implements Tool  {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
  
-        FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+//        FileInputFormat.addInputPath(job, new Path(args[0]));
+//        FileOutputFormat.setOutputPath(job, new Path(args[1] + "/" + Globals.WORD_FREQ_OUTPUT_FOLDER));
+//        
+        // for debug
+        FileInputFormat.addInputPath(job, new Path("/home/training/FromTheTweet/input"));
+        FileOutputFormat.setOutputPath(job, new Path("/home/training/FromTheTweet/output2"));
  
         return job.waitForCompletion(true) ? 0 : 1;
     }
