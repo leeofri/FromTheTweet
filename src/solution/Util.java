@@ -24,13 +24,14 @@ import org.apache.hadoop.io.Writable;
 public class Util {
 
 	public static Tweet GetTweetFromLine(Text value) {
+		
 		// split the the line to name|days..
 		String[] data = value.toString().split("\\|");
 
 		// create the 2D array
 		DoubleWritable[][] tmp2DArray = new DoubleWritable[data.length - 1][];
 
-		// Run on all days the fist cell is the stack name
+		// Run on all days the first cell is the stack name
 		for (int day = 1; day < data.length; day++) {
 			String[] singleDaypParametrs = data[day].split(" ");
 			tmp2DArray[day - 1] = new DoubleWritable[singleDaypParametrs.length];
@@ -40,11 +41,8 @@ public class Util {
 			}
 		}
 
-		// create the stock vector
 		return null;
 	}
-
-	
 
 	public static int numberOfRowsInSeqFile(Path path, Configuration conf) throws IOException, InstantiationException, IllegalAccessException {
 
@@ -81,9 +79,10 @@ public class Util {
             BufferedWriter br=new BufferedWriter(new OutputStreamWriter(fs.create(pt,true)));;
             br.write(Contant);
             br.close();
-    }catch(Exception e){
+		}
+		catch(Exception e){
             System.out.println("File not found");
-    }
+		}
 	}
 	
 	public static String readFileToHDFS (Configuration conf, String path)
@@ -93,11 +92,12 @@ public class Util {
 			Path pt=new Path(path);
             FileSystem fs = FileSystem.get(conf);
             BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
-            String line;
+            //String line;
             Content=br.readLine();
-    }catch(Exception e){
+		}
+		catch(Exception e){
             System.out.println("File not found");
-    }
+		}
 		
 		return Content;
 	}
@@ -108,17 +108,19 @@ public class Util {
 			try {
 				File outputFolder = new File(path.toString());
 				FileUtils.deleteDirectory(outputFolder);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			} 
+			catch (Exception e) {
+				
 				e.printStackTrace();
 			}
-
+	
 			// Deleting the canopy seq file
 			try {
 				File outputFolder = new File("data/SequenceFile.canopyCenters");
 				outputFolder.delete();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			} 
+			catch (Exception e) {
+
 				e.printStackTrace();
 			}
 		}

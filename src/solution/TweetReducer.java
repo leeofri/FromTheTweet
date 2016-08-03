@@ -20,7 +20,7 @@ import org.apache.hadoop.io.TwoDArrayWritable;
 import org.apache.hadoop.io.SequenceFile.Writer;
 import org.apache.hadoop.mapreduce.Reducer;
 
-//calculate a new clustercenter for these vertices
+// Calculate a new cluster center for these vertices
 public class TweetReducer extends
 		Reducer<Text, DoubleWritable, Text, DoubleWritable> {
 
@@ -32,7 +32,7 @@ public class TweetReducer extends
 	protected void reduce(Text key, Iterable<DoubleWritable> values,
 			Context context) throws IOException, InterruptedException {
 		
-			// score summery counter
+			// score summary counter
 			double canidateSunScore = 0;
 			int    tweetConter = 0;
 		
@@ -41,9 +41,8 @@ public class TweetReducer extends
 				canidateSunScore =+ score.get();
 				tweetConter++;
 			}
-			
-			
-			// Update the tweet conter for canidate
+						
+			// Update the tweet counter for candidate
 			Globals.updateCandidate(key.toString(),tweetConter,context);
 			
 			context.write(key,new DoubleWritable(canidateSunScore));

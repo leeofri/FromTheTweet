@@ -31,7 +31,7 @@ public class FinalProj {
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(DoubleWritable.class);
 		
-		// add dictionary to chach
+		// add dictionary to cache 
 		//DistributedCache.addLocalFiles(job.getConfiguration(), "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
 		DistributedCache.addCacheFile((new Path("/user/training/FromTheTweet/wordDictionary.txt").toUri()), job.getConfiguration());
 
@@ -46,7 +46,7 @@ public class FinalProj {
 	    // run canopy
 		job.waitForCompletion(true);
 		
-		// Print the candidate conters
+		// Print the candidate counters
 		Counters counters = job.getCounters();
 
 		System.out.println("Candidate conters:");
