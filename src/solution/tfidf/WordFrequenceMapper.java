@@ -12,9 +12,10 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import solution.ThirdParty.org.apache.lucene.analysis.en.EnglishAnalyzer;
-
-import solution.ThirdParty.org.apache.lucene.analysis.en.EnglishMinimalStemmer;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.en.EnglishMinimalStemmer;
+import org.apache.lucene.analysis.en.EnglishMinimalStemFilter;
 
 
 public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
@@ -38,19 +39,14 @@ public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWri
 			 // Compile all the words using regex
 	        Pattern p = Pattern.compile("\\w+");
 	        Matcher m = p.matcher(tweetText);
-	        EnglishMinimalStemmer engStemmer = new EnglishMinimalStemmer();
-	        
-	        EnglishAnalyzer.getDefaultStopSet();
+
 	      
 	        // build the values and write <k,v> pairs through the context
 	        StringBuilder valueBuilder = new StringBuilder();
 	        while (m.find()) {
 	            String matchedKey = m.group().toLowerCase();
 	            matchedKey.replaceAll("\\<.*=?\\>", "");
-	            
-	            // Stemmer 
-	            int cut = engStemmer.stem(matchedKey.toCharArray(), matchedKey.length());
-	            matchedKey = matchedKey.substring(0, cut);
+	           
 	            
 	            // remove names starting with non letters, digits, considered stopwords or containing other chars
 	            if (!Character.isLetter(matchedKey.charAt(0)) || Character.isDigit(matchedKey.charAt(0))
