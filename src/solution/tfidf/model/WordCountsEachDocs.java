@@ -16,12 +16,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 public class WordCountsEachDocs extends Configured implements Tool{
-	
-	//folder in the  where to put the data in hdfs when we're done
-    private static final String OUTPUT_FOLDER = "2-word-count";
- 
-    // where to read the data from.
-    private static final String INPUT_PATH = "input";
 
 	public int run(String[] args) throws Exception {
 			
@@ -41,12 +35,4 @@ public class WordCountsEachDocs extends Configured implements Tool{
 	 
 	        return job.waitForCompletion(true) ? 0 : 1;
 	    }
-	 
-	    public static void main(String[] args) throws Exception {
-	        int res = ToolRunner.run(new Configuration(), new WordFrequence(), args);
-	        System.exit(res);
-	    }
-					
-		
-	
 }

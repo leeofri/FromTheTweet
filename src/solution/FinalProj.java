@@ -10,6 +10,10 @@ import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.ToolRunner;
+
+import solution.tfidf.model.WordFrequence;
+import solution.tfidf.model.tfidf;
 
 
 public class FinalProj {
@@ -17,12 +21,49 @@ public class FinalProj {
 
 	public static void main(String[] args) throws Exception {
 		
-
+		// conf
 		Configuration conf = new Configuration();
 
-		//"..\\resources\\wordDictionary.txt"
+		String outPutPath = args[1];
+		String inPutPath = args[0];
+		Globals.setOutputFolder(outPutPath);
+		
+		// tfidf prerequisites 
+		// word count
+		String[] WordContPaths = {inPutPath, outPutPath+"/wordcountOutput"};
+		
+		int result = ToolRunner.run(new Configuration(), new WordFrequence(),WordContPaths );
+	    
+		if (result != 0 )
+		{
+			// exit with error
+			System.exit(result);
+		}
+		
+		// word count each doc
+		String[] WordContEachDocPaths = {outPutPath+"/wordcountOutput",outPutPath+"/wordcountEachDocOutput"};
+		result = ToolRunner.run(new Configuration(), new WordFrequence(), WordContEachDocPaths);
+		
+		if (result != 0 )
+		{
+			// exit with error
+			System.exit(result);
+		}
+		
+		
+		// tfidf
+		String[] tfidfPaths = {outPutPath+"/wordcountEachDocOutput",Globals.getOutputFolder().toString()};
+		result = ToolRunner.run(new Configuration(), new tfidf(), tfidfPaths);
+		
+		if (result != 0 )
+		{
+			// exit with error
+			System.exit(result);
+		}
+		
+		//tweet semantic + tfidf analyze
 	
-		Job job = Job.getInstance(conf, "FinelProj.Canopy");
+		Job job = Job.getInstance(conf, "FinelProj");
 		job.setJarByClass(FinalProj.class);
 		job.setMapperClass(TweetMapper.class);
 		job.setReducerClass(TweetReducer.class);
@@ -35,13 +76,12 @@ public class FinalProj {
 		//DistributedCache.addLocalFiles(job.getConfiguration(), "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
 		DistributedCache.addCacheFile((new Path("/user/training/FromTheTweet/wordDictionary.txt").toUri()), job.getConfiguration());
 
-		Path outPutPath = new Path(args[1]);
 		
-		FileOutputFormat.setOutputPath(job, outPutPath);
-		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(outPutPath));
+		FileInputFormat.addInputPath(job, new Path(inPutPath));
 		
 		// delete the privies run output
-	    Util.IsDeleteUtputFolder(true, outPutPath);
+	    Util.IsDeleteUtputFolder(true, new Path(outPutPath));
 		
 	    // run canopy
 		job.waitForCompletion(true);

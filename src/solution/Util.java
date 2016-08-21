@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
@@ -126,28 +128,24 @@ public class Util {
 		}
 	}
 
-	public static void ReadingUserConfigFile(String[] arg) throws IOException {
+	public static Map<String,String> ReadingUserConfigFile(Path path) throws IOException {
 		try {
-			Path pt = Globals.UserConfigFilePath();
 			FileSystem fs = FileSystem.get(new Configuration());
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-					fs.open(pt)));
+					fs.open(path)));
 			String line;
-			line = br.readLine();
-
-			String[] values = line.split(" ");
-
-//			Globals.setKmeansCount(Integer.parseInt(values[1]));
-//			Globals.setDaysNumber(Integer.parseInt(values[3]));
-//			Globals.setFeaturesNumber(Integer.parseInt(values[5]));
 			
-			// set the basic output path
-			//Globals.setOutputFolder(arg[1]);
+			// the return map
+			Map<String,String> map = new HashMap<String, String>();
 			
-			// spilits parameter
-			String filedType;
-			String val = "";
-
+			while ((line = br.readLine()) != null)
+			{
+				String[] values = line.split(" ");
+				map.put(values[0], values[1]);
+				
+			}
+			
+			return map;
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

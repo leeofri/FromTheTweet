@@ -60,4 +60,8 @@ public class Globals {
 		return new Path("./data/userConfigFile.config");
 	}
 	
+	 public static Path getTfidfDirectory()
+	 {
+		 return new Path(outputFolder+"/tfidfOutPut");
+	 }
 }
