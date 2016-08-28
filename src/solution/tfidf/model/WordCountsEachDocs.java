@@ -25,10 +25,9 @@ public class WordCountsEachDocs extends Configured implements Tool{
 	        job.setJarByClass(WordCountsEachDocs.class);
 	        job.setMapperClass(WordCountsEachDocsMapper.class);
 	        job.setReducerClass(WordCountsEachDocsReducer.class);
-	        job.setCombinerClass(WordCountsEachDocsReducer.class);
 	        
 	        job.setOutputKeyClass(Text.class);
-	        job.setOutputValueClass(IntWritable.class);
+	        job.setOutputValueClass(Text.class);
 	 
 	        FileInputFormat.addInputPath(job, new Path(args[0]));
 	        FileOutputFormat.setOutputPath(job, new Path(args[1]));

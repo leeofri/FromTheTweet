@@ -39,7 +39,7 @@ public class tfidf extends Configured implements Tool {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
  
         //Passing the total number of documents as the job name.
-        job.setJobName(solution.Util.ReadingUserConfigFile(Globals.UserConfigFilePath()).get("numOfDays"));
+        job.setJobName(solution.Util.ReadingUserConfigFile(Globals.UserConfigFilePath()).get("numOfDays").toString());
  
         return job.waitForCompletion(true) ? 0 : 1;
     }

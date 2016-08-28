@@ -1,6 +1,9 @@
 package solution;
 
 import java.io.BufferedReader;
+
+import org.apache.commons.collections4.trie.PatriciaTrie;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +38,7 @@ public class Util {
 
 		// Run on all days the first cell is the stack name
 		for (int day = 1; day < data.length; day++) {
-			String[] singleDaypParametrs = data[day].split(" ");
+			String[] singleDaypParametrs = data[day].split(" +");
 			tmp2DArray[day - 1] = new DoubleWritable[singleDaypParametrs.length];
 			for (int paramter = 0; paramter < singleDaypParametrs.length; paramter++) {
 				tmp2DArray[day - 1][paramter] = new DoubleWritable(
@@ -128,7 +131,7 @@ public class Util {
 		}
 	}
 
-	public static Map<String,String> ReadingUserConfigFile(Path path) throws IOException {
+	public static Map<String,Integer> ReadingUserConfigFile(Path path) throws IOException {
 		try {
 			FileSystem fs = FileSystem.get(new Configuration());
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -136,13 +139,13 @@ public class Util {
 			String line;
 			
 			// the return map
-			Map<String,String> map = new HashMap<String, String>();
+			Map<String,Integer> map = new HashMap<String, Integer>();
+
 			
 			while ((line = br.readLine()) != null)
 			{
-				String[] values = line.split(" ");
-				map.put(values[0], values[1]);
-				
+				String[] values = line.split(" +");
+				map.put(values[0], Integer.valueOf(values[1]));
 			}
 			
 			return map;
@@ -150,7 +153,57 @@ public class Util {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new IOException(e);
-
 		}
 	}
+	
+	public static Map<String,Double> ReadingMapMinMax(Path path) throws IOException {
+		try {
+			FileSystem fs = FileSystem.get(new Configuration());
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					fs.open(path)));
+			String line;
+			
+			
+			// the return map
+			Map<String,Double> map = new PatriciaTrie<Double>();
+
+			// min max varible
+			line = br.readLine();
+			String[] values = line.split("\t");
+					
+			Double currVal = Double.valueOf(values[1]);
+			Double maxVal = currVal;
+			Double minVal = currVal;
+			
+			
+			while ((line = br.readLine()) != null)
+			{
+				values = line.split("\t");
+				currVal = Double.valueOf(values[1]);
+				
+				// GetMinMax
+				if (currVal < minVal)
+				{
+					minVal = currVal;
+				}
+				else if (currVal > maxVal)
+				{
+					maxVal = currVal;
+				}
+				
+				map.put(values[0], currVal);
+			}
+			
+			// add the min and max
+			map.put("@MAX",maxVal);
+			map.put("@MIN",minVal);
+			
+			return map;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new IOException(e);
+		}
+	}
+	
 }

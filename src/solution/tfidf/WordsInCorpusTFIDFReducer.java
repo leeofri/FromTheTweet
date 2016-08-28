@@ -27,18 +27,6 @@ public class WordsInCorpusTFIDFReducer extends Reducer<Text, Text, Text, DoubleW
     public WordsInCorpusTFIDFReducer() {
     }
  
-    /**
-     * @param key is the key of the mapper
-     * @param values are all the values aggregated during the mapping phase
-     * @param context contains the context of the job run
-     *
-     *             PRECONDITION: receive a list of <word, ["doc1=n1/N1", "doc2=n2/N2"]>
-     *             POSTCONDITION: <"word@doc1,  [d/D, n/N, TF-IDF]">
-                   		D = total number of documents in corpus. This can be passed by the driver as a constant;
-						d = number of documents in corpus where the term appears. It is a counter over the reduced values for each term;
-						TFIDF = n/N * log(D/d);
-					Output: ((word@document), d/D, (n/N), TFIDF)
-     */
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         // get the number of documents indirectly from the file-system (stored in the job name on purpose)
         int numberOfDocumentsInCorpus = Integer.parseInt(context.getJobName());

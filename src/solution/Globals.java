@@ -53,7 +53,10 @@ public class Globals {
 		outputFolder = outputPath;
 	}
 	
-	
+	public static String getTfidfOutputFolder()
+	{
+		return outputFolder + "/tfidfOutput";
+	}
 	
 	public static Path UserConfigFilePath()
 	{
@@ -62,6 +65,6 @@ public class Globals {
 	
 	 public static Path getTfidfDirectory()
 	 {
-		 return new Path(outputFolder+"/tfidfOutPut");
+		 return new Path(getTfidfOutputFolder());
 	 }
 }

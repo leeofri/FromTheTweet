@@ -21,15 +21,6 @@ public class WordsInCorpusTFIDFMapper extends Mapper<LongWritable, Text, Text, T
     public WordsInCorpusTFIDFMapper() {
     }
  
-    /**
-     * @param key is the byte offset of the current line in the file;
-     * @param value is the line from the file
-     * @param output has the method "collect()" to output the key,value pair
-     * @param reporter allows us to retrieve some information about the job (like the current filename)
-     *
-     *     PRE-CONDITION: marcello@book.txt  \t  3/1500
-     *     POST-CONDITION: marcello, book.txt=3/1500
-     */
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String[] wordAndCounters = value.toString().split("\t");
         String[] wordAndDoc = wordAndCounters[0].split("@");                 //3/1500
