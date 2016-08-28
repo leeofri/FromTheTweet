@@ -5,13 +5,26 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.hadoop.fs.Path;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+
 public class scoreDictionary {
 
 	private Map<String, double[]> dictionary;
+	private Map<String, Double> tfidfDictionary;
+	private double maxVal;
+	private double minVal;
 	
-	public scoreDictionary(String path) throws IOException
+	public scoreDictionary(String path,String tfidfDictionaryPath) throws IOException
 	{
 		this.dictionary = new HashMap<String, double[]>();
+		
+		this.tfidfDictionary = Util.ReadingMapMinMax(new Path(tfidfDictionaryPath));
+		
+		// put the max and min val
+		this.maxVal = this.tfidfDictionary.get("@MAX").doubleValue();
+		this.minVal = this.tfidfDictionary.get("@MIN").doubleValue();
+		
 		
 		this.SentiWordNetDemoCode(path);
 	}
@@ -89,16 +102,25 @@ public class scoreDictionary {
 			return -100;
 	}
 	
+	public double extractTfidf(String word) {
+		if (tfidfDictionary.containsKey(word))
+			return ((tfidfDictionary.get(word).doubleValue() - minVal) / (maxVal - minVal));
+		else
+			return 1;
+	}
+	
 	public double getSentenceGrade(String sentence) {
-		double sum = 0, val = 0;
+		double sum = 0, val = 0,tfidfVal = 0;
 		int count = 0;
 		String[] words = sentence.split("\\s+");
+		
+
 		for (int i = 0; i < words.length; i++) {
 		    words[i] = words[i].replaceAll("[^\\w]", "");
 		    words[i] = words[i].toLowerCase();
 		    val = extract(words[i]);
 		    if (val != -100) {
-		    	sum += val;
+		    	sum += val * extractTfidf(words[i]);
 		    	count++;
 		    }
 		}

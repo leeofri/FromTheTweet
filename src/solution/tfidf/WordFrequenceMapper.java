@@ -54,6 +54,10 @@ public class WordFrequenceMapper extends Mapper<LongWritable, Text, Text, IntWri
 	                continue;
 	            }
 	            
+	            // reset the builder
+	            valueBuilder.setLength(0);
+	            
+	            // connect all tje piceses
 	            valueBuilder.append(matchedKey); 
 	            valueBuilder.append("@");
 	            valueBuilder.append(tweetPublishDay);

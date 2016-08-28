@@ -32,8 +32,7 @@ public class TweetMapper extends
 	
 	// DM
 	private scoreDictionary dictionary;
-	private Map<String,String> tfidfDictionary; 
-
+	
 	@Override
 	protected void setup(Context context) throws IOException,
 			InterruptedException {
@@ -42,10 +41,7 @@ public class TweetMapper extends
 		Path[] path = context.getLocalCacheFiles();
 	
 		// Init the word score dic
-		this.dictionary = new scoreDictionary(path[0].toString());	//.getPath()
-		
-		// init the tfidf dictionary
-		tfidfDictionary = Util.ReadingUserConfigFile(new Path(Globals.getOutputFolder().toString()+"/part-r-00000"));
+		this.dictionary = new scoreDictionary(path[0].toString(), Globals.getTfidfDirectory().toString() + "/part-r-00000");	//.getPath()
 	}
 
 	@Override

@@ -31,12 +31,13 @@ public class WordFrequence extends Configured implements Tool  {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
  
-//        FileInputFormat.addInputPath(job, new Path(args[0]));
-//        FileOutputFormat.setOutputPath(job, new Path(args[1] + "/" + Globals.WORD_FREQ_OUTPUT_FOLDER));
-//        
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        
         // for debug
-        FileInputFormat.addInputPath(job, new Path("/home/training/FromTheTweet/input"));
-        FileOutputFormat.setOutputPath(job, new Path("/home/training/FromTheTweet/output2"));
+//        FileInputFormat.addInputPath(job, new Path("/home/training/FromTheTweet/input"));
+//        FileOutputFormat.setOutputPath(job, new Path("/home/training/FromTheTweet/output2"));
+
  
         return job.waitForCompletion(true) ? 0 : 1;
     }
