@@ -23,7 +23,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.SequenceFile.Reader;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import solution.ThirdParty.StdRandom;
 
 
 // First iteration, k-random centers, in every follow-up iteration we have new calculated centers

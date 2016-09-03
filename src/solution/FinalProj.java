@@ -22,13 +22,15 @@ public class FinalProj {
 
 		// conf
 		Configuration conf = new Configuration();
+		Job job = Job.getInstance(conf, "FinelProj");
+		job.setJarByClass(FinalProj.class);
 
-		// String outPutPath = args[1];
-		// String inPutPath = args[0];
+		 String outPutPath = args[1];
+		 String inPutPath = args[0];
 
 		// debug
-		String outPutPath = "/home/training/FromTheTweet/output";
-		String inPutPath = "/home/training/workspace/FromTheTweet/input/*";
+//		String outPutPath = "/home/training/FromTheTweet/output";
+//		String inPutPath = "/home/training/workspace/FromTheTweet/input/*";
 
 		Globals.setOutputFolder(outPutPath);
 
@@ -68,8 +70,7 @@ public class FinalProj {
 
 		// tweet semantic + tfidf analyze
 
-		Job job = Job.getInstance(conf, "FinelProj");
-		job.setJarByClass(FinalProj.class);
+
 		job.setMapperClass(TweetMapper.class);
 		job.setReducerClass(TweetReducer.class);
 		job.setOutputKeyClass(Text.class);
@@ -78,17 +79,17 @@ public class FinalProj {
 		job.setMapOutputValueClass(DoubleWritable.class);
 
 		// add dictionary to cache
-		 DistributedCache.addLocalFiles(job.getConfiguration(),
-		 "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
-//		DistributedCache.addCacheFile((new Path(
-//				"/user/training/FromTheTweet/wordDictionary.txt").toUri()), job
-//				.getConfiguration());
+//		 DistributedCache.addLocalFiles(job.getConfiguration(),
+//		 "/home/training/workspace/FromTheTweet/resources/wordDictionary.txt");
+		DistributedCache.addCacheFile((new Path(
+				"/user/training/FromTheTweet/data/wordDictionary.txt").toUri()), job
+				.getConfiguration());
 
 		FileOutputFormat.setOutputPath(job, new Path(outPutPath + "/mainOutput"));
 		FileInputFormat.addInputPath(job, new Path(inPutPath));
 
 		// delete the privies run output
-		//Util.IsDeleteUtputFolder(true, new Path(outPutPath));
+		Util.IsDeleteUtputFolder(true, new Path(outPutPath));
 
 		// run canopy
 		job.waitForCompletion(true);

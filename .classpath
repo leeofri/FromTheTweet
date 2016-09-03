@@ -70,8 +70,8 @@
 	<classpathentry kind="lib" path="/usr/lib/hadoop/hadoop-annotations.jar"/>
 	<classpathentry kind="lib" path="/usr/lib/hadoop/hadoop-auth.jar"/>
 	<classpathentry kind="lib" path="/usr/lib/hadoop/hadoop-common.jar"/>
-	<classpathentry kind="lib" path="src/solution/ThirdParty/org.apache.lucene/lucene-analyzers/3.6.1/b48cac8533698ad466552b77f426895273f5f486/lucene-analyzers-3.6.1.jar"/>
-	<classpathentry kind="lib" path="src/solution/ThirdParty/org.apache.lucene/lucene-core/3.6.1/6ae2c83c77a1ffa5840b9151a271ab3f451f6e0c/lucene-core-3.6.1.jar"/>
-	<classpathentry kind="lib" path="/home/training/workspace/FromTheTweet/src/solution/ThirdParty/commons-collections4-4.1/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="src/solution/ThirdParty/lucene-analyzers-3.6.1.jar"/>
+	<classpathentry kind="lib" path="src/solution/ThirdParty/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="/home/training/workspace/FromTheTweet/src/solution/ThirdParty/lucene-core-3.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -60,7 +60,7 @@ public class Globals {
 	
 	public static Path UserConfigFilePath()
 	{
-		return new Path("./data/userConfigFile.config");
+		return new Path("./FromTheTweet/data/userConfigFile.config");
 	}
 	
 	 public static Path getTfidfDirectory()
